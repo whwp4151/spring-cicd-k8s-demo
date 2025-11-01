@@ -1,4 +1,4 @@
-package com.sadik.demo.spring_cicd_k8s_demo;
+package com.sadik.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
