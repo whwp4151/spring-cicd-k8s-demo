@@ -1,12 +1,11 @@
-name: Build and Push (Develop)
+name: Deploy to Develop
 
 on:
   push:
-    branches: [ "develop" ]
-  workflow_dispatch:
+    branches: [ develop ]
 
 jobs:
-  build-and-push-dev:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,10 +18,7 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Grant permission for Gradle
-        run: chmod +x gradlew
-
-      - name: Build with Gradle (skip tests)
+      - name: Build JAR
         run: ./gradlew clean build -x test
 
       - name: Log in to Docker Hub
@@ -31,11 +27,23 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push dev image
-        uses: docker/build-push-action@v6
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/spring-cicd-k8s-demo:develop
-            ${{ secrets.DOCKERHUB_USERNAME }}/spring-cicd-k8s-demo:dev-${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/spring-cicd-k8s-demo:develop-${{ github.run_number }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/spring-cicd-k8s-demo:develop-latest
+
+      - name: Update image tag in Kustomize (develop)
+        run: |
+          sed -i "s|image: .*|image: ${{ secrets.DOCKERHUB_USERNAME }}/spring-cicd-k8s-demo:develop-${{ github.run_number }}|g" k8s/develop/patch-develop.yaml
+
+      - name: Commit and push manifest
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add k8s/develop/patch-develop.yaml
+          git commit -m "Update develop image tag"
+          git push

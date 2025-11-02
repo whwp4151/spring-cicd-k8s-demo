@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-cicd-k8s-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-cicd-k8s-demo
+  template:
+    metadata:
+      labels:
+        app: spring-cicd-k8s-demo
+    spec:
+      containers:
+        - name: spring-cicd-k8s-demo
+          image: whwp4151/spring-cicd-k8s-demo:latest
+          ports:
+            - containerPort: 8080

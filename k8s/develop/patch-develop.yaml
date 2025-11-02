@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-cicd-k8s-demo
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: spring-cicd-k8s-demo
+          image: whwp4151/spring-cicd-k8s-demo:develop-latest
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: develop
