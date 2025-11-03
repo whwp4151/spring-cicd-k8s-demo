@@ -1,13 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
 resources:
   - ../base
+  - namespace.yaml
 
-namePrefix: develop-
-
-patches:
-  - path: patch-develop.yaml
-    target:
-      kind: Deployment
-      name: spring-cicd-k8s-demo
-  - path: namespace.yaml
-    target:
-      kind: Namespace
+patchesStrategicMerge:
+  - patch-develop.yaml
