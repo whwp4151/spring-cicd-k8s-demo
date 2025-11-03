@@ -7,6 +7,6 @@ spec:
     app: spring-cicd-k8s-demo
   ports:
     - name: http
-      port: 80
+      port: 8080
       targetPort: 8080
   type: ClusterIP

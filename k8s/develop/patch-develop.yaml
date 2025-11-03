@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-cicd-k8s-demo
+  name: spring-cicd-k8s-demo-develop
 spec:
   replicas: 1
   template:
@@ -12,3 +12,12 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: develop
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-cicd-k8s-demo-develop
+spec:
+  ports:
+    - port: 8081
+      targetPort: 8080
