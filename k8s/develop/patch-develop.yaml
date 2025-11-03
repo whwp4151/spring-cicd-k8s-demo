@@ -1,23 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-cicd-k8s-demo-develop
+  name: spring-cicd-k8s-demo
 spec:
-  replicas: 1
   template:
     spec:
       containers:
         - name: spring-cicd-k8s-demo
-          image: whwp4151/spring-cicd-k8s-demo:develop-6
+          image: whwp4151/spring-cicd-k8s-demo:develop-12
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: develop
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-cicd-k8s-demo-develop
+  name: spring-cicd-k8s-demo-service
 spec:
+  type: NodePort
   ports:
-    - port: 8081
+    - name: http
+      port: 80
       targetPort: 8080
+      nodePort: 30801
