@@ -9,4 +9,19 @@ spec:
         - name: spring-cicd-k8s-demo
           image: whwp4151/spring-cicd-k8s-demo:develop-8
           ports:
-            - containerPort: 8081
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: develop
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-cicd-k8s-demo-service
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 8080
+      nodePort: 30801
