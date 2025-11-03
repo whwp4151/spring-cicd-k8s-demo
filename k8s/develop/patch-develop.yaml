@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: spring-cicd-k8s-demo
-          image: whwp4151/spring-cicd-k8s-demo:develop-10
+          image: whwp4151/spring-cicd-k8s-demo:develop-11
           ports:
             - containerPort: 8080
           env:
