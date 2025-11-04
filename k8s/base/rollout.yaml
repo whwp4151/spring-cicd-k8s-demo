@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: spring-cicd-k8s-demo
+spec:
+  replicas: 3
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: spring-cicd-k8s-demo
+  template:
+    metadata:
+      labels:
+        app: spring-cicd-k8s-demo
+    spec:
+      containers:
+        - name: spring-cicd-k8s-demo
+          image: whwp4151/spring-cicd-k8s-demo:develop-latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: develop
+  strategy:
+    canary:
+      canaryService: spring-cicd-k8s-demo-canary
+      stableService: spring-cicd-k8s-demo-stable
+      trafficRouting:
+        nginx:
+          stableIngress: spring-cicd-k8s-demo-ingress
+      steps:
+        - setWeight: 20
+        - pause: { duration: 30s }
+        - setWeight: 50
+        - pause: { duration: 1m }
+        - setWeight: 100

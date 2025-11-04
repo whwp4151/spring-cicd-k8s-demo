@@ -1,3 +1,4 @@
 resources:
-  - deployment.yaml
-  - service.yaml
+  - rollout.yaml
+  - service-stable.yaml
+  - service-canary.yaml

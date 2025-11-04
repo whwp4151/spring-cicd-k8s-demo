@@ -1,5 +1,5 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: spring-cicd-k8s-demo
 spec:
@@ -13,14 +13,21 @@ spec:
               value: develop
 
 ---
-apiVersion: v1
-kind: Service
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: spring-cicd-k8s-demo-service
+  name: spring-cicd-k8s-demo-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
 spec:
-  type: NodePort
-  ports:
-    - name: http
-      port: 80
-      targetPort: 8080
-      nodePort: 30801
+  rules:
+    - host: develop.localtest.me
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: spring-cicd-k8s-demo-stable
+                port:
+                  number: 80
