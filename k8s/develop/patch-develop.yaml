@@ -11,23 +11,3 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: develop
-
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: spring-cicd-k8s-demo-ingress
-  annotations:
-    kubernetes.io/ingress.class: nginx
-spec:
-  rules:
-    - host: develop.localtest.me
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: spring-cicd-k8s-demo-stable
-                port:
-                  number: 80

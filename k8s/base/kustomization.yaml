@@ -2,3 +2,4 @@ resources:
   - rollout.yaml
   - service-stable.yaml
   - service-canary.yaml
+  - ingress.yaml
