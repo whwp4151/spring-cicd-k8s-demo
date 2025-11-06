@@ -3,3 +3,4 @@ resources:
   - service-stable.yaml
   - service-canary.yaml
   - ingress.yaml
+  - hpa.yaml
