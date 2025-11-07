@@ -20,3 +20,10 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: develop
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
