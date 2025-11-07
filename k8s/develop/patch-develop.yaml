@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
         - name: spring-cicd-k8s-demo
-          image: whwp4151/spring-cicd-k8s-demo:develop-21
+          image: whwp4151/spring-cicd-k8s-demo:develop-22
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: develop
