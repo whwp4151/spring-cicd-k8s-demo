@@ -22,13 +22,38 @@ public class HelloController {
     @GetMapping("/hello")
     public Map<String, String> hello() {
         String activeProfile = environment.getActiveProfiles()[0];
-        return Map.of("message", "Hello from Spring DevOps Lab!",
+        Map<String, String> message = Map.of("message", "Hello from Spring DevOps Lab!",
                 "version", version,
                 "profile", activeProfile);
+        System.out.println(message);
+        return message;
     }
 
     @GetMapping("/health")
     public Map<String, String> health() {
         return Map.of("status", "UP");
+    }
+
+    @GetMapping("/cpu-test")
+    public String cpuIntensiveTask() {
+        long start = System.currentTimeMillis();
+        long end = start + 10_000; // 10초 동안 반복
+
+        long count = 0;
+        while (System.currentTimeMillis() < end) {
+            isPrime(count++);
+        }
+
+        String message = "CPU test finished. Last number checked: " + count;
+        System.out.println(message);
+        return message;
+    }
+
+    private boolean isPrime(long n) {
+        if (n < 2) return false;
+        for (long i = 2; i * i <= n; i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
     }
 }
