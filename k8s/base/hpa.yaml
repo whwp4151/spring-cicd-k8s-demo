@@ -4,8 +4,8 @@ metadata:
   name: spring-cicd-k8s-demo-hpa
 spec:
   scaleTargetRef:
-    apiVersion: argoproj.io/v1alpha1
-    kind: Rollout
+    apiVersion: apps/v1
+    kind: Deployment
     name: spring-cicd-k8s-demo
   minReplicas: 3
   maxReplicas: 10
