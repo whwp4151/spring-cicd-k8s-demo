@@ -3,7 +3,7 @@ kind: Rollout
 metadata:
   name: my-app-rollout
 spec:
-  replicas: 1
+  replicas: 3
   revisionHistoryLimit: 2
   selector:
     matchLabels:
