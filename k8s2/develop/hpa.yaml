@@ -2,6 +2,8 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: my-app-hpa
+  annotations:
+    autoscaling.alpha.kubernetes.io/vertical-pod-autoscaler-downscale-stabilization: 15m
 spec:
   scaleTargetRef:
     apiVersion: argoproj.io/v1alpha1
