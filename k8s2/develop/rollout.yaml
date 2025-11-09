@@ -16,6 +16,9 @@ spec:
       containers:
         - name: my-app-container
           image: whwp4151/spring-cicd-k8s-demo:develop-24
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: develop
           ports:
             - containerPort: 8080
           resources:
