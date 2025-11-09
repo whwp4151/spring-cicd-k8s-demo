@@ -1,0 +1,23 @@
+# 안정적인 버전으로 트래픽을 라우팅하는 Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-stable-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - port: 80
+      targetPort: 8080
+---
+# 카나리 버전으로 트래픽을 라우팅하는 Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-canary-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - port: 80
+      targetPort: 8080
