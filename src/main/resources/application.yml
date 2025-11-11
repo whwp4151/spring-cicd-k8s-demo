@@ -15,4 +15,4 @@ management:
       show-details: always
 
 app:
-  version: "v4"
+  version: "v5"
