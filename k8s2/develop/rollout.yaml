@@ -34,6 +34,7 @@ spec:
             failureThreshold: 3
   strategy:
     canary:
+      scaleDownDelaySeconds: 30
       stableService: my-app-stable-service
       canaryService: my-app-canary-service
       steps:
