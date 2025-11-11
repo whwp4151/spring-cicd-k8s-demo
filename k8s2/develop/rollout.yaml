@@ -37,7 +37,8 @@ spec:
 
       trafficRouting:
         nginx:
-          ingress: my-app-ingress
+          stableIngress: my-app-ingress
+          canaryIngress: my-app-ingress
 
       steps:
         - setWeight: 20
