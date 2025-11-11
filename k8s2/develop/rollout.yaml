@@ -24,6 +24,14 @@ spec:
           resources:
             requests:
               cpu: "100m"
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
   strategy:
     canary:
       stableService: my-app-stable-service
