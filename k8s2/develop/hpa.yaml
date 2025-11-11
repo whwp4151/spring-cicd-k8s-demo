@@ -2,15 +2,14 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: my-app-hpa
-  namespace: develop
   annotations:
-    autoscaling.alpha.kubernetes.io/vertical-pod-autoscaler-downscale-stabilization: 5m
+    autoscaling.kubernetes.io/downscale-stabilization: "5m"
 spec:
   scaleTargetRef:
     apiVersion: argoproj.io/v1alpha1
     kind: Rollout
     name: my-app-rollout
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 5
   metrics:
     - type: Resource
@@ -18,17 +17,4 @@ spec:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 60
-  behavior:
-    scaleUp:
-      stabilizationWindowSeconds: 0
-      policies:
-        - type: Percent
-          value: 100
-          periodSeconds: 15
-    scaleDown:
-      stabilizationWindowSeconds: 300
-      policies:
-        - type: Percent
-          value: 100
-          periodSeconds: 15
+          averageUtilization: 50
