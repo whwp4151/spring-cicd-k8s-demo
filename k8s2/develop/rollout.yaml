@@ -3,8 +3,7 @@ kind: Rollout
 metadata:
   name: my-app-rollout
 spec:
-  replicas: 1
-  revisionHistoryLimit: 2
+  replicas: 3
   selector:
     matchLabels:
       app: my-app
@@ -34,7 +33,6 @@ spec:
             failureThreshold: 3
   strategy:
     canary:
-      scaleDownDelaySeconds: 30
       stableService: my-app-stable-service
       canaryService: my-app-canary-service
       steps:
