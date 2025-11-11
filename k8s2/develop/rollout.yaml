@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: my-app-container
-          image: whwp4151/spring-cicd-k8s-demo:develop-37
+          image: whwp4151/spring-cicd-k8s-demo:develop-38
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: develop
