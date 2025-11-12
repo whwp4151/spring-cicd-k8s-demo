@@ -4,7 +4,7 @@ metadata:
   name: my-app-rollout
 spec:
   replicas: 1
-  revisionHistoryLimit: 2
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: my-app
@@ -44,10 +44,7 @@ spec:
           stableIngress: my-app-ingress
           canaryIngress: my-app-ingress
 
-      scaleDownDelaySeconds: 30
       steps:
-          - setWeight: 10
-          - pause: { duration: 30s }
-          - setWeight: 30
-          - pause: { duration: 60s }
-          - setWeight: 100
+        - setWeight: 50
+        - pause: { duration: 30s }
+        - setWeight: 100
