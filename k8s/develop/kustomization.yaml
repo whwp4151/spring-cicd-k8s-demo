@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ../base
   - namespace.yaml
+  - rollout-develop.yaml
 
 namespace: develop
 

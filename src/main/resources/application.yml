@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: spring-devops-lab
+    name: spring-cicd-k8s-demo
 
 management:
   endpoints:
@@ -15,4 +15,4 @@ management:
       show-details: always
 
 app:
-  version: "v1"
+  version: "v5"

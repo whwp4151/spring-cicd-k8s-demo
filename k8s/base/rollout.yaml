@@ -1,9 +1,10 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: spring-cicd-k8s-demo
 spec:
   replicas: 3
+  revisionHistoryLimit: 2
   selector:
     matchLabels:
       app: spring-cicd-k8s-demo
@@ -20,10 +21,16 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: develop
-          resources:
-            requests:
-              cpu: 100m
-              memory: 256Mi
-            limits:
-              cpu: 500m
-              memory: 512Mi
+  strategy:
+    canary:
+      canaryService: spring-cicd-k8s-demo-canary
+      stableService: spring-cicd-k8s-demo-stable
+      trafficRouting:
+        nginx:
+          stableIngress: spring-cicd-k8s-demo-ingress
+      steps:
+        - setWeight: 20
+        - pause: { duration: 30s }
+        - setWeight: 50
+        - pause: { duration: 1m }
+        - setWeight: 100

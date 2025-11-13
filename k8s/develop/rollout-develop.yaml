@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: spring-cicd-k8s-demo
+spec:
+  workloadRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: spring-cicd-k8s-demo
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: { duration: 30s }
+        - setWeight: 50
+        - pause: { duration: 30s }
+        - setWeight: 100
